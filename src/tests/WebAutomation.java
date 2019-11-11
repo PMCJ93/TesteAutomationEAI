@@ -25,7 +25,7 @@ public class WebAutomation {
 
         Register register = new Register(driver);
         //Generating random user credentials:
-        String email =  "test_user6@test.com";
+        String email =  "teste_user@test.com";
         String username =  "UserTest";//RandomString(6);
         String password = "password1";//RandomString(9);
         //Proceed to register
