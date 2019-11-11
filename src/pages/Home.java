@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class Home {
     WebDriver driver;
 
@@ -13,9 +15,6 @@ public class Home {
     By closeDisclaimer = By.xpath("//*[@class='trademark-strip']//*[@class='icon-cancel']");
     By skipTour = By.xpath("//*[@class='ChatViewCommon ChatViewClose']");
     By currencyDropdown = By.className("sel_state");
-    By loginPanel = By.xpath("//*[@class='loginPanel']//button");
-    By registerBtn = By.xpath("//*[@class='loginDropdown']//*[contains(text(),'Register')]");
-    By doneCurrency = By.className("doneButton");
     By usernameMenuText = By.xpath("//*[@class='userPanel']//strong");
 
     public Home(WebDriver driver) {
@@ -43,15 +42,13 @@ public class Home {
     }
 
     public void GoToRegister() {
-        //Select currency as USD and then click on sign in then click on register button(close any pop up which comes).
-        new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(loginPanel)).click();
-        //driver.findElement(loginPanel).click();
-        driver.findElement(registerBtn).click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.findElement(By.xpath("//*[@class='loginPanel']//button")).click();
+        driver.findElement(By.xpath("//*[@class='loginDropdown']//*[contains(text(),'Register')]")).click();
     }
 
     public void ValidateRegister(String username) {
         //Closes the currency popup
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(doneCurrency)).click();
 
         // Verify that user is registered successful(from upper right side user contains initials of email) and user is on homepage
         WebElement userDropdown = driver.findElement(usernameMenuText);

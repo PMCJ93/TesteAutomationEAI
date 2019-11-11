@@ -2,9 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 public class Register {
     WebDriver driver;
@@ -15,6 +14,7 @@ public class Register {
 
     public void SignUpAndRegister(String email, String username, String phoneNumber, String password) {
         //email
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@name='signup_email']")).sendKeys(email);
         //Click on next button
         driver.findElement(By.xpath("//button[contains(@class,'signUpNextButtonClass')]")).click();
@@ -32,6 +32,8 @@ public class Register {
         String phone = driver.findElement(By.xpath("//input[@placeholder='Mobile Number']")).getText();
         if (phone != phoneNumber) {
             driver.findElement(By.xpath("//input[@placeholder='Mobile Number']")).clear();
+            driver.findElement(By.xpath("//*[@name='firstlastname']")).clear();
+            driver.findElement(By.xpath("//*[@name='firstlastname']")).sendKeys(username);
             driver.findElement(By.xpath("//input[@placeholder='Mobile Number']")).sendKeys(phoneNumber);
         }
         String pass = driver.findElement(By.xpath("//input[@placeholder='Mobile Number']")).getText();
